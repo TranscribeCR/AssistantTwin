@@ -3,7 +3,9 @@ name: Build APK
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "master" ]
+    branches:
+      - main
+      - master
 
 jobs:
   build:
@@ -21,7 +23,7 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Gradle 8.7
+      - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
@@ -29,17 +31,8 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android SDK packages
-        run: |
-          sdkmanager "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0" \
-            "cmake;3.22.1" \
-            "ndk;26.3.11579264"
-          yes | sdkmanager --licenses || true
-
-      - name: Initialize submodules
-        run: git submodule update --init --recursive || true
+      - name: Accept Android licenses
+        run: yes | sdkmanager --licenses || true
 
       - name: Build APK
         run: gradle assembleDebug --stacktrace
