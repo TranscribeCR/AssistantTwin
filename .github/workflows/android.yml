@@ -30,9 +30,23 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: ''
+
+      - name: Install required Android packages
+        run: |
+          sdkmanager --install \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0" \
+            "cmake;3.22.1" \
+            "ndk;26.3.11579264"
 
       - name: Accept Android licenses
         run: yes | sdkmanager --licenses || true
+
+      - name: Initialize submodules
+        run: git submodule update --init --recursive || true
 
       - name: Build APK
         run: gradle assembleDebug --stacktrace
