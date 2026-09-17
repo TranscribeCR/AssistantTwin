@@ -7,12 +7,11 @@ import java.util.Locale;
 
 public class VoiceOutputManager {
 
-    private boolean ready = false;
     private TextToSpeech tts;
 
     public VoiceOutputManager(Context context) {
         tts = new TextToSpeech(context, status -> {
-            if (status == TextToSpeech.SUCCESS) {
+            if (status == TextToSpeech.SUCCESS && tts != null) {
                 tts.setLanguage(Locale.getDefault());
             }
         });
