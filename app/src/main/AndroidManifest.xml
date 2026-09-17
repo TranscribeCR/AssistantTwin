@@ -25,9 +25,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
-    <!-- All-files access: Play requires a declared, narrow use case for this one
-         (see README) -- request it only if you truly need arbitrary file read/write
-         beyond what scoped storage + MediaStore already cover. -->
+    
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
