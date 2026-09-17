@@ -45,8 +45,21 @@ jobs:
       - name: Accept Android licenses
         run: yes | sdkmanager --licenses || true
 
-      - name: Initialize submodules
-        run: git submodule update --init --recursive || true
+      - name: Ensure llama.cpp is available
+        run: |
+          if [ ! -d "app/src/main/cpp/llama.cpp" ]; then
+            git clone --depth 1 https://github.com/ggml-org/llama.cpp.git \
+              app/src/main/cpp/llama.cpp
+          fi
+
+          test -f app/src/main/cpp/llama.cpp/CMakeLists.txt
+
+      - name: Verify native source
+        run: |
+          echo "llama.cpp directory:"
+          ls -la app/src/main/cpp/llama.cpp
+          echo "CMakeLists:"
+          test -f app/src/main/cpp/llama.cpp/CMakeLists.txt
 
       - name: Build APK
         run: gradle assembleDebug --stacktrace
