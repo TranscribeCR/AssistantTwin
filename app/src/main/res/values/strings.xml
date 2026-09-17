@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Assistant Twin</string>
+    <string name="accessibility_service_description">Lets your Assistant Twin read screen content and tap/type on your behalf, only for actions you ask it to perform.</string>
+</resources>
